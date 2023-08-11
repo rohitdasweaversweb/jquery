@@ -9,10 +9,10 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <title>Ajax</title>
+    <title>Ajax Image</title>
 </head>
 <body>
-    <h1 class="text-center bg-primary">ajax Tutorial</h1>
+    <h1 class="text-center bg-primary">Ajax Image Tutorial</h1>
     <div class="container mt-3">
             <!-- Button to Open the Modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
@@ -31,7 +31,7 @@
     
             <!-- Modal body -->
             <div class="modal-body">
-                <form id="frm">
+                <form id="frm" enctype="multipart/form-data">
                     <div class="mb-3 mt-3">
                     <label for="name" class="form-label">Name:</label>
                     <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
@@ -40,17 +40,14 @@
                         <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
                         </div>
                     </div>
-                    <div class="mb-3">
-                    <label for="pwd" class="form-label">Password:</label>
-                    <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-                    </div>
+                  
 
-                    <!-- <div class="mb-3">
+                    <div class="mb-3">
                     <label for="img" class="form-label">Image:</label>
                     <input type="file" class="form-control" id="img" name="img">
-                    </div> -->
+                    </div>
                 
-                    <button type="button" class="btn btn-primary" onclick="addData()">Submit</button>
+                    <input type="button" value="submit" class="btn btn-primary" onclick="addData()">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
 
                 </form>
@@ -103,18 +100,20 @@
         }
 
         function addData(){
-            var name=$("#name").val();
-            var email=$("#email").val();
-            var password=$("#pwd").val();
+            // ev.preventDefault();
 
+            var fd=new FormData()
+            var img=document.getElementById("img").files[0];
+            
+            fd.append("img",img);
+            fd.append("name",$("#name").val());
+            fd.append("email",$("#email").val());
             $.ajax({
-                url:"ins.php",
+                url:"insert.php",
                 type:'post',
-                data:{
-                    name:name,
-                    email:email,
-                    password:password
-                },
+                data:fd,
+                contentType:false,
+                processData:false,
                 success:function(data){
                     // console.log(data);
                     $('#frm')[0].reset();
@@ -138,19 +137,7 @@
         }
         }
 
-        // function editData(updid){
-        //     $("#hiddendata").val(updid);
-        //     $.post("edit.php",{updid:updid},function(data){
-        //        var user_id = JSON.stringify(data);
-        //         // var user_id=JSON.parse(data);
-        //         $('updname').val(user_id.name);   
-        //         $('updemail').val(user_id.email);   
-        //         $('updpwd').val(user_id.pass);   
-
-        //     });
-
-        //     $('#updmodal').modal("show");       
-        // }
+       
 
          // modal body form
          $(document).on("click",".edit",function(){
@@ -176,9 +163,9 @@
             contentType:false,
             processData:false, 
              success :function(data){
-              $("#updname").val('');
-              $("#updemail").val('');
-              $("#updpwd").val('');
+              $("#name").val('');
+              $("#email").val('');
+              $("#img").val('');
               displayData();
               
              }
