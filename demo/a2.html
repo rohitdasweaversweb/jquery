@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <p><button id="btn">Click me</button></p>
+    <div id="con">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt ea perferendis libero sequi, tenetur nam, nobis dolore provident quas praesentium animi reprehenderit nihil ipsam recusandae consectetur accusantium mollitia unde molestias. Expedita laboriosam eligendi eum labore, aut quas officia quibusdam ducimus quo, amet autem fugiat? Sequi provident impedit ducimus nihil rerum dicta quaerat numquam consequuntur, sint, odit dolorum tempore atque id eaque, suscipit aliquam. Tempore, distinctio suscipit modi eum labore nesciunt voluptatum non recusandae quibusdam, magni molestias excepturi? Officiis, quas? Obcaecati?
+    </div>
+    <script >
+        $(document).ready(function(){
+            // $("#btn").click(function(){
+            //     $("#con").fadeIn(1000);
+            // });
+
+            $("#btn").click(function(){
+                $("#con").fadeToggle(1000);
+            });
+
+            $("#btn").click(function(){
+                $('#con').animate(
+                    {opacity:0.2,
+                        height:'150 px',
+                        width:'350px'
+                    }
+                    ,2000);
+            })
+        });
+    </script>
+</body>
+</html>
